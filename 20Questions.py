@@ -7,13 +7,13 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
 
-def openTextFile(input: str):
+def openTextFile(input: str) -> None:
     f = open("20_Questions_Glossary.txt", "a")
     f.write(f"{input}\n")
     f.close()
     return 
 
-def readTextFile():
+def readTextFile() -> str:
     f = open("20_Questions_Glossary.txt")
     fileGlossary = ""
     for _ in f: 
@@ -31,12 +31,14 @@ def thinkWord() -> str:
     return answer
 
 
-def runGame():
-    numGuesses = 5
+def runGame() -> None:
+    numGuesses = 20
     answer = thinkWord()
     if answer[-1] == '.':
         answer = answer[0,-1]
-    print("word is: ", answer)
+        
+    # If you would like to know the generated word
+    # print("word is: ", answer)
     openTextFile(answer)
     while numGuesses != 0: 
         question = input(f"Input Question {numGuesses}: ")
