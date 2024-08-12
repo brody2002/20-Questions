@@ -1,2 +1,2 @@
 # 20Q uestions
-20 Questions using OpenAI ChatGPT-4o
+Play the game 20 Questions using python and the OpenAI ChatGPT-4o API. 
