@@ -1,20 +1,67 @@
 import openai
 import os
-
 from openai import OpenAI 
+# For window app
+import tkinter as tk
+import time
+import threading
+
+# class TypeSpeedGUI:
+
+#     def __init__(self) -> None:
+#         # self.root -> window
+#         # tk is a graphics window library
+#         self.root = tk.Tk()
+#         self.root.title("20 Questions")
+#         self.root.geometry("1000x800")
+
+
+#         self.texts = open("texts.txt", "r").read().split("\n")
+
+#         self.frame = tk.Frame(self.root)
+
+#         #NOTE: Label: Static text
+#             #  Entry: Input text field
+#         self.sample_label = tk.Label(self.frame, text = random.choice(self.texts), font=("Helvetica", 18))
+#         self.sample_label.grid(row=0, column=0, columnspan=2, padx=5, pady=10)
+
+#         self.input_entry = tk.Entry(self.frame, width=20, font=("Helvetica", 24))
+#         self.input_entry.grid(row=1, column=0, columnspan=2, padx=5, pady=10)
+
+#         # "<KeyPress>" -> is an event! Gets passed in start func
+#         self.input_entry.bind("<KeyPress>", self.start)
+
+#         self.speed_label = tk.Label(self.frame, text = "Speed: \n0.00 CPS\n0.00 CPM", font=("Helvetica", 18))
+#         self.speed_label.grid(row=2 , column=0, columnspan=2, padx=5, pady=10)
+
+#         self.reset_button = tk.Button(self.frame, text = "Reset", command=self.reset)
+#         self.reset_button.grid(row=3 , column=0, columnspan=2, padx=5, pady=10)
+
+
+#         self.frame.pack(expand=True)
+#         self.counter = 0
+#         self.running = False
+
+#         self.root.mainloop()
+
+
+
+
 
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
-
+textDir = "20_Questions_Glossary.txt"
 
 def openTextFile(input: str) -> None:
-    f = open("20_Questions_Glossary.txt", "a")
+    f = open(textDir, "a")
     f.write(f"{input}\n")
     f.close()
     return 
 
 def readTextFile() -> str:
-    f = open("20_Questions_Glossary.txt")
+    if False == os.path.exists(textDir):
+        return ""
+    f = open(textDir)
     fileGlossary = ""
     for _ in f: 
         fileGlossary += f.read()
@@ -36,7 +83,7 @@ def runGame() -> None:
     answer = thinkWord()
     if answer[-1] == '.':
         answer = answer[0,-1]
-        
+
     # If you would like to know the generated word
     # print("word is: ", answer)
     openTextFile(answer)
